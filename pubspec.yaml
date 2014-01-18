@@ -1,4 +1,5 @@
 name: dart_and_cpp_classes
+version: 0.0.1
 dependencies:
   ccompilers: any
   path: any

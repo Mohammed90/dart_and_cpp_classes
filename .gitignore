@@ -3,5 +3,9 @@
 .idea
 .pub/
 build/
-packages
+packages/
 pubspec.lock
+*.dll
+*.o
+*.obj
+*.so

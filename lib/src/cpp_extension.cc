@@ -18,7 +18,7 @@ Dart_NativeFunction ResolveName(Dart_Handle name, int argc, bool* auto_setup_sco
 DART_EXPORT Dart_Handle cpp_extension_Init(Dart_Handle parent_library) {
   if (Dart_IsError(parent_library)) { return parent_library; }
 
-  Dart_Handle result_code = Dart_SetNativeResolver(parent_library, ResolveName);
+  Dart_Handle result_code = Dart_SetNativeResolver(parent_library, ResolveName, NULL);
   if (Dart_IsError(result_code)) return result_code;
 
   return Dart_Null();
@@ -36,8 +36,8 @@ class Connection {
   public:
     Connection() {
       opened = false;
-      buffer = new int[1000000];
-      memset(buffer, 1, 1000000);
+      buffer = new int[100000];
+      memset(buffer, 1, 100000);
     }
 
     void close() {
@@ -77,8 +77,8 @@ void ConnectionCreate(Dart_NativeArguments arguments) {
   Dart_ExitScope();
 }
 
-void ConnectionPeerFinalizer(Dart_WeakPersistentHandle handle, void *peer) {
-  delete (Connection*) peer;
+void ConnectionPeerFinalizer(void* isolate_callback_data, Dart_WeakPersistentHandle handle, void *peer) {
+  //delete (Connection*) peer;
 }
 
 void ConnectionPeerRegister(Dart_NativeArguments arguments) {
@@ -90,7 +90,7 @@ void ConnectionPeerRegister(Dart_NativeArguments arguments) {
   dh_object = Dart_GetNativeArgument(arguments, 0);
   dh_peer = Dart_GetNativeArgument(arguments, 1);
   Dart_IntegerToInt64(dh_peer, &peer);
-  Dart_NewWeakPersistentHandle(dh_object, (void*)peer, ConnectionPeerFinalizer);
+  Dart_NewWeakPersistentHandle(dh_object, (void*)peer, 1, ConnectionPeerFinalizer);
   Dart_SetReturnValue(arguments, Dart_Null());
   Dart_ExitScope();
 }

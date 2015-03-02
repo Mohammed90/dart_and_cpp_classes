@@ -1,5 +1,11 @@
 name: dart_and_cpp_classes
-version: 0.0.2
+version: 0.0.3
 dependencies:
-  ccompilers: any
   path: any
+dev_dependencies:
+  build_tools: any
+  caller_info: any
+  ccompilers: any
+  file_utils: any
+  patsubst:
+    git: https://github.com/mezoni/patsubst.git

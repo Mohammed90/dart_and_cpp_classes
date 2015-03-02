@@ -1,5 +1,5 @@
 name: dart_and_cpp_classes
-version: 0.0.3
+version: 0.0.4
 dependencies:
   path: any
 dev_dependencies:
